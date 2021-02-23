@@ -8,9 +8,28 @@ function App() {
     {name: 'PDF Reader', price: '$60.99'},
     {name: 'Editor', price: '$80.99'}
   ]
+  const productName = products.map(product => product.name);
+  // console.log("HERE : ",productName);
   return (
     <div className="App">
       <header className="App-header">
+        <ul>
+          {/* dynamic li */}
+          {
+            names.map(name => <li>{name}</li>)
+          }
+          {/* general li  */}
+          <li>{names[0]}</li>
+          <li>{names[1]}</li>
+          <li>{names[2]}</li>
+          <li>{names[3]}</li>
+          {
+            products.map(product => <li>{product.name}</li>)
+          }
+        </ul>
+        {
+          products.map(pd => <Product product={pd}></Product>)
+        }
         {/* <Product name={products[0].name} price={products[0].price}></Product> */}
         <Product product={products[0]}></Product>
         <Product product={products[1]}></Product>
@@ -34,7 +53,7 @@ function Product(props){
   }
   // destructuring the object 
   const {name, price} = props.product;
-  console.log(name, price);
+  // console.log(name, price);
   return (
     <div style={productStyle}>
       {/* <h2>{props.name} </h2>
@@ -51,7 +70,7 @@ function Person(props) {
   const nameStyle ={
     color: 'green',
   }
-  console.log(props);
+  // console.log(props);
   return (
     <div style={{border:'2px solid red', margin:'10px'}}>
       <h2>Name: <span style={nameStyle}>{props.name}</span></h2>
