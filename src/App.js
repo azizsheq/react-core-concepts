@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
@@ -13,6 +14,8 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <Counter></Counter>
+        <Users></Users>
         <ul>
           {/* dynamic li */}
           {
@@ -77,6 +80,58 @@ function Person(props) {
       <p>Age is {props.age}</p>
     </div>
   ); 
+}
+
+// declaring a state
+function Counter(){
+  // setting the hook 
+  const [count, setCount] = useState(10);
+  // multi line arrow function
+  // const handleIncrease = () => {
+  //   // console.log('clicked')
+  //   const newCount = count + 1;
+  //   setCount(newCount);
+  // };
+  // one line arrow function
+  const handleIncrease = () => setCount(count + 1);
+  return(
+    <div>
+      <h1>Count : {count}</h1>
+      {/* calling the function */}
+      {/* <button onClick={handleIncrease}>Increase</button> */}
+
+      {/* without calling the function  */}
+      <button onClick={() => setCount(count + 1)}>Increase</button>
+      <button onClick={() => setCount(count - 1)}>Decrease</button>
+    </div>
+  );
+}
+
+// dynamic data loading 
+function Users() {
+  const [users, setUsers] = useState([]);
+  // useEffect is being used to load data automatically
+  // useEffect is a default 
+  useEffect(() => {
+    // console.log("Calling Effect");
+    fetch('https://jsonplaceholder.typicode.com/users')
+    .then(res => res.json())
+    .then(data => setUsers(data));
+  }, [])
+  // [] is used to stop reloading again and again
+  return (
+    <div>
+      <h1>Dynamic Users : {users.length}</h1>
+      {/* {
+        console.log(users)
+      } */}
+      <ul>
+        {
+          users.map(user => <li>{user.phone}</li>)
+        }
+      </ul>
+    </div>
+  )
 }
 
 export default App;
